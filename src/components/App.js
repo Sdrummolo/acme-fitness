@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { AppProvider } from "../context/AppContext";
+import { AppContext } from "../context/AppContext";
 
+import Welcome from "./Welcome";
 import Navbar from "./Navbar";
 import Menu from "./Menu";
 import Home from "./Home";
@@ -11,9 +12,11 @@ import Statistics from "./Statistics";
 import GymEquipment from "./GymEquipment";
 import OurInstructors from "./OurInstructors";
 import Settings from "./Settings";
+import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "./NotFound";
 
 const App = () => {
+  const { isAuthenticated } = useContext(AppContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -21,22 +24,61 @@ const App = () => {
   };
 
   return (
-    <AppProvider>
-      <Router>
-        <Navbar toggleDrawer={toggleDrawer} />
-        <Menu toggleDrawer={toggleDrawer} menuOpen={menuOpen} />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/search-food" component={SearchFood} />
-          <Route exact path="/search-food/:id" component={Food} />
-          <Route exact path="/statistics" component={Statistics} />
-          <Route exact path="/gym-equipment" component={GymEquipment} />
-          <Route exact path="/our-instructors" component={OurInstructors} />
-          <Route exact path="/settings" component={Settings} />
-          <Route path="/" component={NotFound} />
-        </Switch>
-      </Router>
-    </AppProvider>
+    <Router>
+      {/* Only render Navbar if user is authenticated */}
+      {isAuthenticated ? (
+        <>
+          <Navbar toggleDrawer={toggleDrawer} />
+          <Menu toggleDrawer={toggleDrawer} menuOpen={menuOpen} />
+        </>
+      ) : null}
+      <Switch>
+        <Route exact path="/welcome" component={Welcome} />
+        <ProtectedRoute
+          exact
+          path="/"
+          component={Home}
+          isAuthenticated={isAuthenticated}
+        />
+        <ProtectedRoute
+          exact
+          path="/search-food"
+          component={SearchFood}
+          isAuthenticated={isAuthenticated}
+        />
+        <ProtectedRoute
+          exact
+          path="/search-food/:id"
+          component={Food}
+          isAuthenticated={isAuthenticated}
+        />
+        <ProtectedRoute
+          exact
+          path="/statistics"
+          component={Statistics}
+          isAuthenticated={isAuthenticated}
+        />
+        <ProtectedRoute
+          exact
+          path="/gym-equipment"
+          component={GymEquipment}
+          isAuthenticated={isAuthenticated}
+        />
+        <ProtectedRoute
+          exact
+          path="/our-instructors"
+          component={OurInstructors}
+          isAuthenticated={isAuthenticated}
+        />
+        <ProtectedRoute
+          exact
+          path="/settings"
+          component={Settings}
+          isAuthenticated={isAuthenticated}
+        />
+        <Route path="/" component={NotFound} />
+      </Switch>
+    </Router>
   );
 };
 

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import {
   Table,
@@ -20,9 +21,10 @@ import {
 
 const Food = (props) => {
   const data = props.location.props;
-  const { addItem } = useContext(AppContext);
+  const { addItem, changePage } = useContext(AppContext);
   const [openDialog, setOpenDialog] = useState(false);
   const [quantity, setQuantity] = useState(0);
+  let history = useHistory();
 
   const handleDialog = () => {
     setOpenDialog(!openDialog);
@@ -33,8 +35,10 @@ const Food = (props) => {
   };
 
   const handleSubmit = () => {
-    handleDialog();
-    addItem({ data: data, quantity: quantity });
+    handleDialog(); // Close modal
+    addItem({ data: data, quantity: quantity }); // Update list
+    history.push("/"); // Redirect to Home
+    changePage({ title: "Home", path: "/" }); // Update navigation bar title
   };
 
   return (

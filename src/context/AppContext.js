@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect } from "react";
 export const AppContext = createContext();
 
 export const AppProvider = (props) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currPage, setCurrPage] = useState({
     title: "Home",
     path: "/",
@@ -12,6 +13,7 @@ export const AppProvider = (props) => {
   const [totCalories, setTotCalories] = useState(0);
 
   // Keeps track of the amount of calories consumed in total. Is updated when an entry is added or removed from listData[]
+  // The nutrientID that is associated with Energy (Kcal) in the USDA API is 1008
   useEffect(() => {
     let totCalories = 0;
 
@@ -55,6 +57,7 @@ export const AppProvider = (props) => {
         listData: listData,
         dayPieData: dayPieData,
         totCalories: totCalories,
+        isAuthenticated: isAuthenticated,
         changePage: changePage,
         removeItem: removeItem,
         addItem: addItem,
