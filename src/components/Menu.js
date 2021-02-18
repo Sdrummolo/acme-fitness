@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -25,12 +26,13 @@ const useStyles = makeStyles((theme) => ({
   menuIcon: {},
 }));
 
-const Menu = ({ toggleDrawer, menuOpen, changeCurrPage }) => {
+const Menu = ({ toggleDrawer, menuOpen }) => {
   const classes = useStyles();
+  const { changePage } = useContext(AppContext);
 
-  const handleClick = (page) => {
+  const handleClick = (data) => {
     toggleDrawer();
-    changeCurrPage(page);
+    changePage({ title: data.title, path: data.path });
   };
 
   return (
@@ -49,7 +51,12 @@ const Menu = ({ toggleDrawer, menuOpen, changeCurrPage }) => {
       </div>
       <List>
         <Link to="/" className={classes.link}>
-          <ListItem button onClick={() => handleClick("Home")}>
+          <ListItem
+            button
+            onClick={() => {
+              handleClick({ title: "Home", path: "/" });
+            }}
+          >
             <ListItemIcon className={classes.menuIcon}>
               <HomeIcon />
             </ListItemIcon>
@@ -57,7 +64,12 @@ const Menu = ({ toggleDrawer, menuOpen, changeCurrPage }) => {
           </ListItem>
         </Link>
         <Link to="/search-food" className={classes.link}>
-          <ListItem button onClick={() => handleClick("Search Food")}>
+          <ListItem
+            button
+            onClick={() =>
+              handleClick({ title: "Search Food", path: "/search-food" })
+            }
+          >
             <ListItemIcon>
               <SearchIcon />
             </ListItemIcon>
@@ -65,7 +77,12 @@ const Menu = ({ toggleDrawer, menuOpen, changeCurrPage }) => {
           </ListItem>
         </Link>
         <Link to="/statistics" className={classes.link}>
-          <ListItem button onClick={() => handleClick("Statistics")}>
+          <ListItem
+            button
+            onClick={() =>
+              handleClick({ title: "Statistics", path: "/statistics" })
+            }
+          >
             <ListItemIcon>
               <EqualizerIcon />
             </ListItemIcon>
@@ -73,7 +90,12 @@ const Menu = ({ toggleDrawer, menuOpen, changeCurrPage }) => {
           </ListItem>
         </Link>
         <Link to="/gym-equipment" className={classes.link}>
-          <ListItem button onClick={() => handleClick("Gym Equipment")}>
+          <ListItem
+            button
+            onClick={() =>
+              handleClick({ title: "Gym Equipment", path: "/gym-equipment" })
+            }
+          >
             <ListItemIcon>
               <FitnessCenterIcon />
             </ListItemIcon>
@@ -81,7 +103,15 @@ const Menu = ({ toggleDrawer, menuOpen, changeCurrPage }) => {
           </ListItem>
         </Link>
         <Link to="/our-instructors" className={classes.link}>
-          <ListItem button onClick={() => handleClick("Our Instructors")}>
+          <ListItem
+            button
+            onClick={() =>
+              handleClick({
+                title: "Our Instructors",
+                path: "/our-instructors",
+              })
+            }
+          >
             <ListItemIcon>
               <SearchIcon />
             </ListItemIcon>
@@ -89,7 +119,12 @@ const Menu = ({ toggleDrawer, menuOpen, changeCurrPage }) => {
           </ListItem>
         </Link>
         <Link to="/settings" className={classes.link}>
-          <ListItem button onClick={() => handleClick("Settings")}>
+          <ListItem
+            button
+            onClick={() =>
+              handleClick({ title: "Settings", path: "/settings" })
+            }
+          >
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>

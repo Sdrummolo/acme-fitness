@@ -1,56 +1,42 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { AppProvider } from "../context/AppContext";
 
 import Navbar from "./Navbar";
 import Menu from "./Menu";
 import Home from "./Home";
 import SearchFood from "./SearchFood";
+import Food from "./Food";
 import Statistics from "./Statistics";
 import GymEquipment from "./GymEquipment";
 import OurInstructors from "./OurInstructors";
 import Settings from "./Settings";
+import NotFound from "./NotFound";
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currPage, setCurrPage] = useState("Home");
 
   const toggleDrawer = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const changeCurrPage = (page) => {
-    setCurrPage(page);
-  };
-
   return (
-    <Router>
-      <Navbar toggleDrawer={toggleDrawer} currPage={currPage} />
-      <Menu
-        toggleDrawer={toggleDrawer}
-        menuOpen={menuOpen}
-        changeCurrPage={changeCurrPage}
-      />
-      <Switch>
-        <Route exact path="/">
-          <Home changeCurrPage={changeCurrPage} />
-        </Route>
-        <Route exact path="/search-food">
-          <SearchFood />
-        </Route>
-        <Route exact path="/statistics">
-          <Statistics />
-        </Route>
-        <Route exact path="/gym-equipment">
-          <GymEquipment />
-        </Route>
-        <Route exact path="/our-instructors">
-          <OurInstructors />
-        </Route>
-        <Route exact path="/settings">
-          <Settings />
-        </Route>
-      </Switch>
-    </Router>
+    <AppProvider>
+      <Router>
+        <Navbar toggleDrawer={toggleDrawer} />
+        <Menu toggleDrawer={toggleDrawer} menuOpen={menuOpen} />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/search-food" component={SearchFood} />
+          <Route exact path="/search-food/:id" component={Food} />
+          <Route exact path="/statistics" component={Statistics} />
+          <Route exact path="/gym-equipment" component={GymEquipment} />
+          <Route exact path="/our-instructors" component={OurInstructors} />
+          <Route exact path="/settings" component={Settings} />
+          <Route path="/" component={NotFound} />
+        </Switch>
+      </Router>
+    </AppProvider>
   );
 };
 

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Typography, Button } from "@material-ui/core";
@@ -19,45 +20,31 @@ const useStyles = makeStyles({
   },
 });
 
-const Home = ({ changeCurrPage }) => {
-  const [listData, setListData] = useState([
-    {
-      title: "Peanuts",
-      quantity: 30,
-      calories: 170,
-    },
-    {
-      title: "Strawberries",
-      quantity: 130,
-      calories: 50,
-    },
-    {
-      title: "Yogurt",
-      quantity: 170,
-      calories: 170,
-    },
-  ]);
+const Home = () => {
+  const { changePage, totCalories } = useContext(AppContext);
 
   const classes = useStyles();
-
-  const handleClick = (page) => {
-    changeCurrPage(page);
-  };
 
   return (
     <Container>
       <Typography variant="h3">Today</Typography>
       <div className={classes.caloricGoalContainer}>
         <Typography variant="h6">Caloric Goal:</Typography>
-        <Typography variant="h4">430 / 2300</Typography>
+        <Typography variant="h4">{Math.round(totCalories)} / 2300</Typography>
       </div>
       <Pie />
       <Link to="/search-food" className={classes.link}>
-        <Button variant="contained" onClick={() => handleClick("Search Food")}>
+        <Button
+          variant="contained"
+          onClick={() =>
+            changePage({ title: "Search Food", path: "search-food" })
+          }
+        >
           Eat Something
         </Button>
       </Link>
-      <TodayFoodList listData={listData} setListData={setListData} />
+      <Typography variant="h6">Today's Food</Typography>
+      <TodayFoodList />
     </Container>
   );
 };
