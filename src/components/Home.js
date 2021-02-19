@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 });
 
 const Home = () => {
-  const { changePage, totCalories } = useContext(AppContext);
+  const { changePage, totCalories, caloricGoal } = useContext(AppContext);
 
   const classes = useStyles();
 
@@ -30,7 +30,9 @@ const Home = () => {
       <Typography variant="h3">Today</Typography>
       <div className={classes.caloricGoalContainer}>
         <Typography variant="h6">Caloric Goal:</Typography>
-        <Typography variant="h4">{Math.round(totCalories)} / 2300</Typography>
+        <Typography variant="h4">
+          {Math.round(totCalories)} / {Math.round(caloricGoal)}
+        </Typography>
       </div>
       <Pie />
       <Link to="/search-food" className={classes.link}>

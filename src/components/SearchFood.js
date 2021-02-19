@@ -62,14 +62,14 @@ const SearchFood = () => {
         />
       </form>
       {isFetching ? <CircularProgress /> : null}
-      <Route exact path="/search-food/:id">
-        <Food />
-      </Route>
       <List>
         {results.map((item, i) => {
           return (
             <Link
-              to={{ pathname: `/search-food/${i}`, props: item }}
+              to={{
+                pathname: `/search-food/${i}`,
+                state: item,
+              }}
               key={i}
               onClick={() =>
                 changePage({
@@ -86,6 +86,7 @@ const SearchFood = () => {
           );
         })}
       </List>
+      <Route exact path="/search-food/:id" component={Food} />
     </Container>
   );
 };

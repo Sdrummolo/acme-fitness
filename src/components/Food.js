@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import {
   Table,
@@ -19,11 +19,11 @@ import {
   Typography,
 } from "@material-ui/core";
 
-const Food = (props) => {
-  const data = props.location.props;
+const Food = () => {
   const { addItem, changePage } = useContext(AppContext);
   const [openDialog, setOpenDialog] = useState(false);
   const [quantity, setQuantity] = useState(0);
+  const data = useLocation().state;
   let history = useHistory();
 
   const handleDialog = () => {
