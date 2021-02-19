@@ -25,9 +25,7 @@ const useStyles = makeStyles({
 });
 
 const Welcome = () => {
-  let history = useHistory();
   const { setUserData, setIsAuthenticated } = useContext(AppContext);
-  const classes = useStyles();
   const [values, setValues] = useState({
     age: "",
     sex: "",
@@ -36,6 +34,8 @@ const Welcome = () => {
     activity: "",
   });
   const [openDialog, setOpenDialog] = useState(false);
+  const classes = useStyles();
+  let history = useHistory();
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });

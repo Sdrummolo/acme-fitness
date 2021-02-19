@@ -5,11 +5,11 @@ export const AppContext = createContext();
 export const AppProvider = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [userData, setUserData] = useState({
-    // age: Number(values.age),
-    // sex: values.sex,
-    // weight: Number(values.weight),
-    // height: Number(values.height),
-    // activity: values.activity,
+    // age: null,
+    // sex: null,
+    // weight: null,
+    // height: null,
+    // activity: null,
 
     // --- HARDCODED VALUES FOR TESTING ---
     age: 25,
@@ -121,6 +121,10 @@ export const AppProvider = (props) => {
         addItem: addItem,
         setUserData: setUserData,
         setIsAuthenticated: setIsAuthenticated,
+        setCaloricGoal: setCaloricGoal,
+        setBMI: setBMI,
+        setListData: setListData,
+        setTotCalories: setTotCalories,
       }}
     >
       {props.children}

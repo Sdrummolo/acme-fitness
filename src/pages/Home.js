@@ -3,8 +3,8 @@ import { AppContext } from "../context/AppContext";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Typography, Button } from "@material-ui/core";
-import Pie from "./Pie";
-import TodayFoodList from "./TodayFoodList";
+import Pie from "../components/Pie";
+import TodayFoodList from "../components/TodayFoodList";
 
 const useStyles = makeStyles({
   caloricGoalContainer: {

@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
 import Welcome from "./Welcome";
-import Navbar from "./Navbar";
-import Menu from "./Menu";
+import Navbar from "../components/Navbar";
+import Menu from "../components/Menu";
 import Home from "./Home";
 import SearchFood from "./SearchFood";
 import Food from "./Food";
@@ -12,7 +12,7 @@ import Statistics from "./Statistics";
 import GymEquipment from "./GymEquipment";
 import OurInstructors from "./OurInstructors";
 import Settings from "./Settings";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "../components/ProtectedRoute";
 import NotFound from "./NotFound";
 
 const App = () => {
